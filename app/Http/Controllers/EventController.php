@@ -3,26 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Place;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
     public function index()
     {
-        // Liste tous les événements
         $events = Event::with('place')->latest()->paginate(10);
         return view('events.index', compact('events'));
     }
 
     public function create()
     {
-        // Affiche le formulaire de création
-        return view('events.create');
+        $places = Place::all();
+        return view('events.create', compact('places'));
     }
 
     public function store(Request $request)
     {
-        // Valide et enregistre un nouvel événement
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -32,17 +31,19 @@ class EventController extends Controller
         ]);
         $validated['user_id'] = auth()->id();
         Event::create($validated);
-        return redirect()->route('events.index')->with('success', 'Événement créé');
+        return redirect()->route('events.index')->with('success', 'Événement créé avec succès.');
     }
 
     public function show(Event $event)
     {
+        $event->load(['place', 'participants', 'speakers', 'sponsors']);
         return view('events.show', compact('event'));
     }
 
     public function edit(Event $event)
     {
-        return view('events.edit', compact('event'));
+        $places = Place::all();
+        return view('events.edit', compact('event', 'places'));
     }
 
     public function update(Request $request, Event $event)
@@ -55,12 +56,12 @@ class EventController extends Controller
             'place_id' => 'nullable|exists:places,id',
         ]);
         $event->update($validated);
-        return redirect()->route('events.index')->with('success', 'Événement mis à jour');
+        return redirect()->route('events.index')->with('success', 'Événement modifié avec succès.');
     }
 
     public function destroy(Event $event)
     {
         $event->delete();
-        return redirect()->route('events.index')->with('success', 'Événement supprimé');
+        return redirect()->route('events.index')->with('success', 'Événement supprimé avec succès.');
     }
 }
