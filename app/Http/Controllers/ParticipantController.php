@@ -2,63 +2,62 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Participant;
+use App\Models\Event;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ParticipantController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $participants = Participant::with(['user', 'event'])->latest()->paginate(10);
+        return view('participants.index', compact('participants'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $users = User::all();
+        $events = Event::all();
+        return view('participants.create', compact('users', 'events'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'event_id' => 'required|exists:events,id',
+        ]);
+        Participant::create($validated);
+        return redirect()->route('participants.index')->with('success', 'Participant ajouté avec succès.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(Participant $participant)
     {
-        //
+        $participant->load(['user', 'event']);
+        return view('participants.show', compact('participant'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit(Participant $participant)
     {
-        //
+        $users = User::all();
+        $events = Event::all();
+        return view('participants.edit', compact('participant', 'users', 'events'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Participant $participant)
     {
-        //
+        $validated = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'event_id' => 'required|exists:events,id',
+        ]);
+        $participant->update($validated);
+        return redirect()->route('participants.index')->with('success', 'Participant modifié avec succès.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Participant $participant)
     {
-        //
+        $participant->delete();
+        return redirect()->route('participants.index')->with('success', 'Participant supprimé avec succès.');
     }
 }

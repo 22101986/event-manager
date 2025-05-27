@@ -2,63 +2,59 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Speaker;
+use App\Models\Event;
 use Illuminate\Http\Request;
 
 class SpeakerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $speakers = Speaker::with('event')->latest()->paginate(10);
+        return view('speakers.index', compact('speakers'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $events = Event::all();
+        return view('speakers.create', compact('events'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'event_id' => 'required|exists:events,id',
+            'name' => 'required|string|max:255',
+        ]);
+        Speaker::create($validated);
+        return redirect()->route('speakers.index')->with('success', 'Intervenant ajouté avec succès.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(Speaker $speaker)
     {
-        //
+        $speaker->load('event');
+        return view('speakers.show', compact('speaker'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit(Speaker $speaker)
     {
-        //
+        $events = Event::all();
+        return view('speakers.edit', compact('speaker', 'events'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Speaker $speaker)
     {
-        //
+        $validated = $request->validate([
+            'event_id' => 'required|exists:events,id',
+            'name' => 'required|string|max:255',
+        ]);
+        $speaker->update($validated);
+        return redirect()->route('speakers.index')->with('success', 'Intervenant modifié avec succès.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Speaker $speaker)
     {
-        //
+        $speaker->delete();
+        return redirect()->route('speakers.index')->with('success', 'Intervenant supprimé avec succès.');
     }
 }
