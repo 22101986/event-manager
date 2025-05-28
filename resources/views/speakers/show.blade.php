@@ -9,7 +9,8 @@
             Détail de l'intervenant
         </div>
         <div class="card-body">
-            <p><strong>Nom :</strong> {{ $speaker->name }}</p>
+            <h3><strong>Nom :</strong> {{ $speaker->name }}</h3>
+            <p>Bio : {{ $speaker->bio }}</p>
             <p><strong>Événement :</strong> {{ $speaker->event->title ?? '-' }}</p>
             <div class="d-flex gap-2 mt-3">
                 <a href="{{ route('speakers.edit', $speaker) }}" class="btn btn-warning">Modifier</a>
