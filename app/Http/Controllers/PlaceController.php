@@ -23,6 +23,7 @@ class PlaceController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
+            'description' => 'nullable|string|max:1000',
         ]);
         Place::create($validated);
         return redirect()->route('places.index')->with('success', 'Lieu créé avec succès.');
@@ -44,6 +45,7 @@ class PlaceController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
+            'description' => 'nullable|string|max:1000',
         ]);
         $place->update($validated);
         return redirect()->route('places.index')->with('success', 'Lieu modifié avec succès.');

@@ -9,6 +9,7 @@ class Place extends Model
 {
     protected $fillable = [
         'name',
+        'description',
         'address',
     ];
     // Un lieu peut accueillir plusieurs événements
