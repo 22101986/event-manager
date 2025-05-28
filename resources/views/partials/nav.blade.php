@@ -11,16 +11,12 @@
             </ul>
         </div>
         
-        <div class="navbar-text">
             @auth
                 Connecté en tant que {{ auth()->user()->name }}
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="btn btn-primary text-light">Déconnexion</button>
+                    <button type="submit" class="btn btn-primary text-light m-2">Déconnexion</button>
                 </form>
-                 @else
-                <a href="{{ route('login') }}" class="btn btn-primary text-light">Connexion</a>
             @endauth
-        </div>
     </div>
 </nav>
