@@ -9,6 +9,9 @@
             Détail de l'intervenant
         </div>
         <div class="card-body">
+        @if($speaker->image)
+            <img src="{{ asset('storage/' . $speaker->image) }}" alt="Photo de {{ $speaker->name }}" class="img-fluid rounded" style="max-height:200px;">
+        @endif
             <h3><strong>Nom :</strong> {{ $speaker->name }}</h3>
             <p>Bio : {{ $speaker->bio }}</p>
             <p><strong>Événement :</strong> {{ $speaker->event->title ?? '-' }}</p>

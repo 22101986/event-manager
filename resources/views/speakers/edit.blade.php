@@ -9,7 +9,7 @@
             Modifier l'intervenant
         </div>
         <div class="card-body">
-            <form method="POST" action="{{ route('speakers.update', $speaker) }}">
+            <form method="POST" action="{{ route('speakers.update', $speaker) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="mb-3">
@@ -34,6 +34,12 @@
                     <textarea name="bio" id="bio" class="form-control" rows="4">{{ old('bio', $speaker->bio) }}</textarea>
                     @error('bio') <div class="text-danger small">{{ $message }}</div> @enderror
                 </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image (fichier)</label>
+                    <input type="file" name="image" id="image" class="form-control" accept="image/*">
+                    @error('image') <div class="text-danger small">{{ $message }}</div> @enderror
+                </div>
+
                 <button type="submit" class="btn btn-success">Enregistrer</button>
                 <a href="{{ route('speakers.index') }}" class="btn btn-secondary">Annuler</a>
             </form>

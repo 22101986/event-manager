@@ -11,6 +11,7 @@ class Speaker extends Model
         'name',
         'bio',
         'event_id',
+        'image',
 
     ];
     // Chaque speaker appartient à un événement

@@ -26,8 +26,21 @@ class SpeakerController extends Controller
             'event_id' => 'required|exists:events,id',
             'name' => 'required|string|max:255',
             'bio' => 'nullable|string|max:1000',
+            'image' => 'nullable|image|max:2048', // max 2Mo
         ]);
-        Speaker::create($validated);
+
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('speakers', 'public');
+        }
+
+        Speaker::create([
+            'name' => $validated['name'],
+            'bio' => $validated['bio'] ?? null,
+            'event_id' => $validated['event_id'],
+            'image' => $imagePath,
+        ]);
+
         return redirect()->route('speakers.index')->with('success', 'Intervenant ajouté avec succès.');
     }
 
@@ -49,8 +62,21 @@ class SpeakerController extends Controller
             'event_id' => 'required|exists:events,id',
             'name' => 'required|string|max:255',
             'bio' => 'nullable|string|max:1000',
+            'image' => 'nullable|image|max:2048',
         ]);
-        $speaker->update($validated);
+    
+        $imagePath = $speaker->image;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('speakers', 'public');
+        }
+    
+        $speaker->update([
+            'name' => $validated['name'],
+            'bio' => $validated['bio'] ?? null,
+            'event_id' => $validated['event_id'],
+            'image' => $imagePath,
+        ]);
+    
         return redirect()->route('speakers.index')->with('success', 'Intervenant modifié avec succès.');
     }
 
