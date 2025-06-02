@@ -1,41 +1,43 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container" style="max-width:400px;">
-    <h1 class="mb-4">Connexion</h1>
-    @if(session('status'))
-        <div class="alert alert-success">{{ session('status') }}</div>
-    @endif
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
-
-        <div class="mb-3">
-            <label for="email" class="form-label">Adresse e-mail</label>
-            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                   name="email" value="{{ old('email') }}" required autofocus>
-            @error('email') <div class="text-danger">{{ $message }}</div> @enderror
+<div class="max-w-sm mx-auto my-16">
+    <div class="bg-white rounded-3xl shadow-lg p-8">
+        <h1 class="text-2xl font-extrabold text-indigo-700 mb-6 text-center">Connexion</h1>
+        @if(session('status'))
+            <div class="mb-4 p-3 rounded bg-green-100 text-green-800 text-center font-semibold">{{ session('status') }}</div>
+        @endif
+        <form method="POST" action="{{ route('login') }}" class="space-y-6">
+            @csrf
+            <div>
+                <label for="email" class="block font-semibold text-indigo-600 mb-1">Adresse e-mail</label>
+                <input id="email" type="email"
+                       class="w-full border-2 border-indigo-300 rounded-lg px-4 py-2 text-gray-900 placeholder-gray-500 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 transition"
+                       name="email" value="{{ old('email') }}" required autofocus>
+                @error('email') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
+            </div>
+            <div>
+                <label for="password" class="block font-semibold text-indigo-600 mb-1">Mot de passe</label>
+                <input id="password" type="password"
+                       class="w-full border-2 border-indigo-300 rounded-lg px-4 py-2 text-gray-900 placeholder-gray-500 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 transition"
+                       name="password" required>
+                @error('password') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
+            </div>
+            <div class="flex items-center mb-2">
+                <input type="checkbox" class="form-checkbox accent-indigo-600" name="remember" id="remember">
+                <label class="ml-2 text-gray-700 font-medium" for="remember">Se souvenir de moi</label>
+            </div>
+            <button type="submit"
+                    class="w-full bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-bold py-2 px-6 rounded-lg shadow hover:from-indigo-600 hover:to-pink-600 transition">
+                Se connecter
+            </button>
+        </form>
+        <div class="mt-4 text-center">
+            <a href="{{ route('register') }}" class="text-indigo-600 hover:underline">Pas encore de compte ? S'inscrire</a>
         </div>
-
-        <div class="mb-3">
-            <label for="password" class="form-label">Mot de passe</label>
-            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-                   name="password" required>
-            @error('password') <div class="text-danger">{{ $message }}</div> @enderror
+        <div class="mt-2 text-center">
+            <a href="{{ route('password.request') }}" class="text-gray-600 hover:underline">Mot de passe oublié ?</a>
         </div>
-
-        <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" name="remember" id="remember">
-            <label class="form-check-label" for="remember">Se souvenir de moi</label>
-        </div>
-
-        <button type="submit" class="btn btn-primary w-100">Se connecter</button>
-    </form>
-
-    <div class="mt-3 text-center">
-        <a href="{{ route('register') }}">Pas encore de compte ? S'inscrire</a>
-    </div>
-    <div class="mt-2 text-center">
-        <a href="{{ route('password.request') }}">Mot de passe oublié ?</a>
     </div>
 </div>
 @endsection

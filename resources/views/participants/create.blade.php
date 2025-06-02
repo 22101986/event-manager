@@ -3,42 +3,52 @@
 @section('title', 'Ajouter un participant')
 
 @section('content')
-<div class="container">
-    <div class="card mx-auto m-5" style="max-width: 600px;">
-        <div class="card-header bg-success text-white">
+<div class="max-w-xl mx-auto my-12">
+    <div class="bg-white rounded-3xl shadow-lg p-8">
+        <div class="mb-6 text-2xl font-extrabold text-center text-green-700">
             Ajouter un participant
         </div>
-        <div class="card-body">
-            <form method="POST" action="{{ route('participants.store') }}">
-                @csrf
-                <div class="mb-3">
-                    <label for="user_id" class="form-label">Utilisateur</label>
-                    <select name="user_id" id="user_id" class="form-select" required>
-                        <option value="">-- Sélectionner --</option>
-                        @foreach ($users as $user)
-                            <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : '' }}>
-                                {{ $user->name }} ({{ $user->email }})
-                            </option>
-                        @endforeach
-                    </select>
-                    @error('user_id') <div class="text-danger small">{{ $message }}</div> @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="event_id" class="form-label">Événement</label>
-                    <select name="event_id" id="event_id" class="form-select" required>
-                        <option value="">-- Sélectionner --</option>
-                        @foreach ($events as $event)
-                            <option value="{{ $event->id }}" {{ old('event_id') == $event->id ? 'selected' : '' }}>
-                                {{ $event->title }}
-                            </option>
-                        @endforeach
-                    </select>
-                    @error('event_id') <div class="text-danger small">{{ $message }}</div> @enderror
-                </div>
-                <button type="submit" class="btn btn-success">Enregistrer</button>
-                <a href="{{ route('participants.index') }}" class="btn btn-secondary">Annuler</a>
-            </form>
-        </div>
+        <form method="POST" action="{{ route('participants.store') }}" class="space-y-6">
+            @csrf
+            <div>
+                <label for="user_id" class="block font-semibold text-green-700 mb-1">Utilisateur</label>
+                <select name="user_id" id="user_id"
+                        class="w-full border-2 border-green-300 rounded-lg px-4 py-2 text-gray-900 focus:border-green-600 focus:ring-2 focus:ring-green-200 transition"
+                        required>
+                    <option value="">-- Sélectionner --</option>
+                    @foreach ($users as $user)
+                        <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : '' }}>
+                            {{ $user->name }} ({{ $user->email }})
+                        </option>
+                    @endforeach
+                </select>
+                @error('user_id') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
+            </div>
+            <div>
+                <label for="event_id" class="block font-semibold text-green-700 mb-1">Événement</label>
+                <select name="event_id" id="event_id"
+                        class="w-full border-2 border-green-300 rounded-lg px-4 py-2 text-gray-900 focus:border-green-600 focus:ring-2 focus:ring-green-200 transition"
+                        required>
+                    <option value="">-- Sélectionner --</option>
+                    @foreach ($events as $event)
+                        <option value="{{ $event->id }}" {{ old('event_id') == $event->id ? 'selected' : '' }}>
+                            {{ $event->title }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('event_id') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
+            </div>
+            <div class="flex justify-between gap-4 pt-4">
+                <button type="submit"
+                        class="bg-gradient-to-r from-green-500 to-green-700 text-white font-bold py-2 px-6 rounded-lg shadow hover:from-green-600 hover:to-green-800 transition">
+                    Enregistrer
+                </button>
+                <a href="{{ route('participants.index') }}"
+                   class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-6 rounded-lg shadow transition">
+                    Annuler
+                </a>
+            </div>
+        </form>
     </div>
 </div>
 @endsection

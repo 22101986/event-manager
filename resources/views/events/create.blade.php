@@ -1,45 +1,64 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1>Créer un événement</h1>
-    <form action="{{ route('events.store') }}" method="POST" enctype="multipart/form-data">
+<div class="max-w-2xl mx-auto my-12 bg-white rounded-3xl shadow-lg p-8">
+    <h1 class="text-3xl font-extrabold text-indigo-700 mb-8 text-center">Créer un événement</h1>
+    <form action="{{ route('events.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
         @csrf
-        <div class="mb-3">
-            <label for="title" class="form-label">Titre</label>
-            <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}" required>
-            @error('title') <div class="text-danger">{{ $message }}</div> @enderror
+        <div>
+            <label for="title" class="block font-semibold text-indigo-600 mb-1">Titre</label>
+            <input type="text" name="title" id="title"
+                   class="w-full border-2 border-indigo-300 rounded-lg px-4 py-2 text-gray-900 placeholder-gray-600 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 transition"
+                   value="{{ old('title') }}" required>
+            @error('title') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
         </div>
-        <div class="mb-3">
-            <label for="description" class="form-label">Description</label>
-            <textarea name="description" id="description" class="form-control">{{ old('description') }}</textarea>
+        <div>
+            <label for="description" class="block font-semibold text-indigo-600 mb-1">Description</label>
+            <textarea name="description" id="description" rows="3"
+                      class="w-full border-2 border-indigo-300 rounded-lg px-4 py-2 text-gray-900 placeholder-gray-600 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 transition">{{ old('description') }}</textarea>
         </div>
-        <div class="mb-3">
-            <label for="start_date" class="form-label">Date de début</label>
-            <input type="datetime-local" name="start_date" id="start_date" class="form-control" value="{{ old('start_date') }}" required>
-            @error('start_date') <div class="text-danger">{{ $message }}</div> @enderror
+        <div class="flex flex-col sm:flex-row gap-6">
+            <div class="flex-1">
+                <label for="start_date" class="block font-semibold text-indigo-600 mb-1">Date de début</label>
+                <input type="datetime-local" name="start_date" id="start_date"
+                       class="w-full border-2 border-pink-300 rounded-lg px-4 py-2 text-gray-900 placeholder-gray-600 focus:border-pink-600 focus:ring-2 focus:ring-pink-200 transition"
+                       value="{{ old('start_date') }}" required>
+                @error('start_date') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
+            </div>
+            <div class="flex-1">
+                <label for="end_date" class="block font-semibold text-indigo-600 mb-1">Date de fin</label>
+                <input type="datetime-local" name="end_date" id="end_date"
+                       class="w-full border-2 border-pink-300 rounded-lg px-4 py-2 text-gray-900 placeholder-gray-600 focus:border-pink-600 focus:ring-2 focus:ring-pink-200 transition"
+                       value="{{ old('end_date') }}">
+                @error('end_date') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="end_date" class="form-label">Date de fin</label>
-            <input type="datetime-local" name="end_date" id="end_date" class="form-control" value="{{ old('end_date') }}">
-            @error('end_date') <div class="text-danger">{{ $message }}</div> @enderror
+        <div>
+            <label for="poster" class="block font-semibold text-indigo-600 mb-1">Affiche de l'événement</label>
+            <input type="file" name="poster" id="poster" accept="image/*"
+                   class="w-full border-2 border-indigo-300 rounded-lg px-4 py-2 text-gray-900 placeholder-gray-600 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 transition file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700">
+            @error('poster') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
         </div>
-        <div class="mb-3">
-            <label for="poster" class="form-label">Affiche de l'événement</label>
-            <input type="file" name="poster" id="poster" class="form-control" accept="image/*">
-            @error('poster') <div class="text-danger small">{{ $message }}</div> @enderror
-        </div>
-        <div class="mb-3">
-            <label for="place_id" class="form-label">Lieu</label>
-            <select name="place_id" id="place_id" class="form-control">
+        <div>
+            <label for="place_id" class="block font-semibold text-indigo-600 mb-1">Lieu</label>
+            <select name="place_id" id="place_id"
+                    class="w-full border-2 border-indigo-300 rounded-lg px-4 py-2 text-gray-900 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 transition">
                 <option value="">-- Aucun --</option>
                 @foreach($places as $place)
                     <option value="{{ $place->id }}" @if(old('place_id') == $place->id) selected @endif>{{ $place->name }}</option>
                 @endforeach
             </select>
         </div>
-        <button class="btn btn-success">Enregistrer</button>
-        <a href="{{ route('events.index') }}" class="btn btn-secondary">Annuler</a>
+        <div class="flex justify-between gap-4 pt-4">
+            <button type="submit"
+                    class="bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-bold py-2 px-6 rounded-lg shadow hover:from-indigo-600 hover:to-pink-600 transition">
+                Enregistrer
+            </button>
+            <a href="{{ route('events.index') }}"
+               class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-6 rounded-lg shadow transition">
+                Annuler
+            </a>
+        </div>
     </form>
 </div>
 @endsection
