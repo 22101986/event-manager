@@ -65,9 +65,10 @@
                     @if($event->speakers->count())
                         <ul class="list-group list-group-flush">
                             @foreach($event->speakers as $speaker)
-                                <li class="list-group-item">{{ $speaker->name }}</li>
+                                <li class="list-group-item"><h4>{{ $speaker->name }}</h4></li>
                             @endforeach
                         </ul>
+                        <p>{{ $speaker->bio }}</p>
                     @else
                         <p class="text-muted">Aucun intervenant pour cet événement.</p>
                     @endif

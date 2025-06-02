@@ -28,6 +28,11 @@
                     </select>
                     @error('event_id') <div class="text-danger small">{{ $message }}</div> @enderror
                 </div>
+                <div class="mb-3">
+                    <label for="bio" class="form-label">Bio</label>
+                    <textarea name="bio" id="bio" class="form-control" rows="4">{{ old('bio') }}</textarea>
+                    @error('bio') <div class="text-danger small">{{ $message }}</div> @enderror
+                </div>
                 <button type="submit" class="btn btn-success">Enregistrer</button>
                 <a href="{{ route('speakers.index') }}" class="btn btn-secondary">Annuler</a>
             </form>

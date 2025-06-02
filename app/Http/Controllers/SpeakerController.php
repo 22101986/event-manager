@@ -25,6 +25,7 @@ class SpeakerController extends Controller
         $validated = $request->validate([
             'event_id' => 'required|exists:events,id',
             'name' => 'required|string|max:255',
+            'bio' => 'nullable|string|max:1000',
         ]);
         Speaker::create($validated);
         return redirect()->route('speakers.index')->with('success', 'Intervenant ajouté avec succès.');
@@ -47,6 +48,7 @@ class SpeakerController extends Controller
         $validated = $request->validate([
             'event_id' => 'required|exists:events,id',
             'name' => 'required|string|max:255',
+            'bio' => 'nullable|string|max:1000',
         ]);
         $speaker->update($validated);
         return redirect()->route('speakers.index')->with('success', 'Intervenant modifié avec succès.');
