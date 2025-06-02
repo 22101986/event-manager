@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h1>Modifier l'événement</h1>
-    <form action="{{ route('events.update', $event) }}" method="POST">
+    <form action="{{ route('events.update', $event) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="mb-3">
@@ -24,6 +24,11 @@
             <label for="end_date" class="form-label">Date de fin</label>
             <input type="datetime-local" name="end_date" id="end_date" class="form-control" value="{{ old('end_date', $event->end_date ? \Illuminate\Support\Carbon::parse($event->end_date)->format('Y-m-d\TH:i') : '') }}">
             @error('end_date') <div class="text-danger">{{ $message }}</div> @enderror
+        </div>
+        <div class="mb-3">
+            <label for="poster" class="form-label">Affiche de l'événement</label>
+            <input type="file" name="poster" id="poster" class="form-control" accept="image/*">
+            @error('poster') <div class="text-danger small">{{ $message }}</div> @enderror
         </div>
         <div class="mb-3">
             <label for="place_id" class="form-label">Lieu</label>

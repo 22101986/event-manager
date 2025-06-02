@@ -8,7 +8,13 @@
         <div class="card-header bg-primary text-white">
             <h2 class="mb-0">{{ $event->title }}</h2>
         </div>
+        
         <div class="card-body">
+        @if($event->poster)
+            <div class="text-center mb-4">
+                <img src="{{ asset('storage/' . $event->poster) }}" alt="Affiche de l'événement" class="img-fluid rounded shadow" style="max-height: 300px;">
+            </div>
+        @endif
             <p><strong>Description :</strong> {{ $event->description }}</p>
             <p><strong>Lieu :</strong> {{ $event->place?->name ?? '-' }}</p>
             <div class="row">
@@ -62,17 +68,28 @@
                     <h5 class="mb-0">Intervenants</h5>
                 </div>
                 <div class="card-body">
-                    @if($event->speakers->count())
-                        <ul class="list-group list-group-flush">
-                            @foreach($event->speakers as $speaker)
-                                <li class="list-group-item"><h4>{{ $speaker->name }}</h4></li>
-                                <p>{{ $speaker->bio }}</p>
-                                @endforeach
-                        </ul>
-                        
-                    @else
-                        <p class="text-muted">Aucun intervenant pour cet événement.</p>
-                    @endif
+                @if($event->speakers->count())
+                <ul class="list-group list-group-flush">
+                    @foreach($event->speakers as $speaker)
+                        <li class="list-group-item d-flex align-items-center gap-3">
+                            @if($speaker->image)
+                                <img src="{{ asset('storage/' . $speaker->image) }}" 
+                                    alt="Photo de {{ $speaker->name }}" 
+                                    class="rounded-circle border"
+                                    style="width:48px; height:48px; object-fit:cover;">
+                            @endif
+                            <div>
+                                <h6 class="mb-1">{{ $speaker->name }}</h6>
+                                @if($speaker->bio)
+                                    <div class="text-muted small">{{ $speaker->bio }}</div>
+                                @endif
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
+            @else
+                <p class="text-muted">Aucun intervenant pour cet événement.</p>
+            @endif
                 </div>
             </div>
         </div>

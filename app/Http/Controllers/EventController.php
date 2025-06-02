@@ -28,9 +28,16 @@ class EventController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'nullable|date|after_or_equal:start_date',
             'place_id' => 'nullable|exists:places,id',
+            'poster' => 'nullable|image|max:4096',
         ]);
         $validated['user_id'] = auth()->id();
+
+        if ($request->hasFile('poster')) {
+            $validated['poster'] = $request->file('poster')->store('events', 'public');
+        }
+
         Event::create($validated);
+
         return redirect()->route('events.index')->with('success', 'Événement créé avec succès.');
     }
 
@@ -54,8 +61,15 @@ class EventController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'nullable|date|after_or_equal:start_date',
             'place_id' => 'nullable|exists:places,id',
+            'poster' => 'nullable|image|max:4096',
         ]);
+
+        if ($request->hasFile('poster')) {
+            $validated['poster'] = $request->file('poster')->store('events', 'public');
+        }
+
         $event->update($validated);
+
         return redirect()->route('events.index')->with('success', 'Événement modifié avec succès.');
     }
 

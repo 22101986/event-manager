@@ -14,7 +14,8 @@ class Event extends Model
         'description',
         'start_date',
         'end_date',
-        'place_id',   
+        'place_id', 
+        'poster',  
     ];
     // L'organisateur
     public function user(): BelongsTo
