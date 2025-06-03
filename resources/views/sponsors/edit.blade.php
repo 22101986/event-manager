@@ -17,13 +17,12 @@
                     value="{{ old('name', $sponsor->name) }}"
                     required
                     class="input-yellow">
-                @error('name') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
+                @error('name') <div class="error-message">{{ $message }}</div> @enderror
             </div>
             <div>
                 <label for="logo" class="label-yellow">Logo (fichier)</label>
-                <input type="file" name="logo" id="logo" accept="image/*"
-                    class="input-yellow file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-yellow-50 file:text-yellow-700">
-                @error('logo') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
+                <input type="file" name="logo" id="logo" accept="image/*" class="image-yellow">
+                @error('logo') <div class="error-message">{{ $message }}</div> @enderror
             </div>
             <div>
                 <label for="event_id" class="label-yellow">Événement</label>
@@ -35,7 +34,7 @@
                         </option>
                     @endforeach
                 </select>
-                @error('event_id') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
+                @error('event_id') <div class="error-message">{{ $message }}</div> @enderror
             </div>
             <div class="flex justify-between gap-4 pt-4">
                 <button type="submit" class="btn-yellow-gradient">

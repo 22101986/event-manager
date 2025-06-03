@@ -17,7 +17,7 @@
                     value="{{ old('name', $speaker->name) }}"
                     required
                     class="input-yellow">
-                @error('name') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
+                @error('name') <div class="error-message">{{ $message }}</div> @enderror
             </div>
             <div>
                 <label for="event_id" class="label-yellow">Événement</label>
@@ -29,18 +29,17 @@
                         </option>
                     @endforeach
                 </select>
-                @error('event_id') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
+                @error('event_id') <div class="error-message">{{ $message }}</div> @enderror
             </div>
             <div>
                 <label for="bio" class="label-yellow">Bio</label>
                 <textarea name="bio" id="bio" rows="4" class="input-yellow">{{ old('bio', $speaker->bio) }}</textarea>
-                @error('bio') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
+                @error('bio') <div class="error-message">{{ $message }}</div> @enderror
             </div>
             <div>
                 <label for="image" class="label-yellow">Image (fichier)</label>
-                <input type="file" name="image" id="image" accept="image/*"
-                    class="input-yellow file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-yellow-50 file:text-yellow-700">
-                @error('image') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
+                <input type="file" name="image" id="image" accept="image/*" class="image-yellow">
+                @error('image') <div class="error-message">{{ $message }}</div> @enderror
             </div>
             <div class="flex justify-between gap-4 pt-4">
                 <button type="submit" class="btn-yellow-gradient">
