@@ -36,7 +36,7 @@
             </div>
         </div>
         <!-- Mobile menu -->
-        <div id="mobile-menu" class="navbar-mobile-menu">
+        <div id="mobile-menu" class="md:hidden hidden mt-2 space-y-1">
             <a href="{{ route('events.index') }}" class="navbar-link-mobile">Événements</a>
             <a href="{{ route('places.index') }}" class="navbar-link-mobile">Lieux</a>
             <a href="{{ route('participants.index') }}" class="navbar-link-mobile">Participants</a>
@@ -55,12 +55,14 @@
     </div>
     <!-- Menu burger JS -->
     <script>
-        const toggleBtn = document.getElementById('navbar-toggle');
-        const menu = document.getElementById('mobile-menu');
-        if(toggleBtn && menu) {
-            toggleBtn.addEventListener('click', () => {
-                menu.classList.toggle('hidden');
-            });
-        }
-    </script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const toggleBtn = document.getElementById('navbar-toggle');
+            const menu = document.getElementById('mobile-menu');
+            if(toggleBtn && menu) {
+                toggleBtn.addEventListener('click', () => {
+                    menu.classList.toggle('hidden');
+                });
+            }
+        });
+</script>
 </nav>
