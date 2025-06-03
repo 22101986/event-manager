@@ -26,12 +26,12 @@
             <div class="flex flex-col sm:flex-row gap-6 mt-4">
                 <div class="flex-1">
                     <p class="text-md text-gray-800">
-                        <span class="font-semibold text-pink-600">Date début :</span> {{ $event->start_date }}
+                        <span class="font-semibold text-pink-600">Date début :</span> {{ \Carbon\Carbon::parse($event->start_date)->format('d/m/Y \à H:i') }}
                     </p>
                 </div>
                 <div class="flex-1">
                     <p class="text-md text-gray-800">
-                        <span class="font-semibold text-pink-600">Date fin :</span> {{ $event->end_date ?? '-' }}
+                        <span class="font-semibold text-pink-600">Date fin :</span> {{ \Carbon\Carbon::parse($event->end_date)->format('d/m/Y \à H:i') ?? '-' }}
                     </p>
                 </div>
             </div>

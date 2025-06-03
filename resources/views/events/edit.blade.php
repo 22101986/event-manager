@@ -23,14 +23,14 @@
                 <label for="start_date" class="block font-semibold text-indigo-600 mb-1">Date de début</label>
                 <input type="datetime-local" name="start_date" id="start_date"
                        class="w-full border-2 border-pink-300 rounded-lg px-4 py-2 text-gray-900 placeholder-gray-600 focus:border-pink-600 focus:ring-2 focus:ring-pink-200 transition"
-                       value="{{ old('start_date', \Illuminate\Support\Carbon::parse($event->start_date)->format('Y-m-d\TH:i')) }}" required>
+                       value="{{ old('start_date', \Illuminate\Support\Carbon::parse($event->start_date)->format('d/m/Y à H:i')) }}" required>
                 @error('start_date') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
             </div>
             <div class="flex-1">
                 <label for="end_date" class="block font-semibold text-indigo-600 mb-1">Date de fin</label>
                 <input type="datetime-local" name="end_date" id="end_date"
                        class="w-full border-2 border-pink-300 rounded-lg px-4 py-2 text-gray-900 placeholder-gray-600 focus:border-pink-600 focus:ring-2 focus:ring-pink-200 transition"
-                       value="{{ old('end_date', $event->end_date ? \Illuminate\Support\Carbon::parse($event->end_date)->format('Y-m-d\TH:i') : '') }}">
+                       value="{{ old('end_date', $event->end_date ? \Illuminate\Support\Carbon::parse($event->end_date)->format('d/m/Y à H:i') : '') }}">
                 @error('end_date') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
             </div>
         </div>
