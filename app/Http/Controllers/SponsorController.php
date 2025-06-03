@@ -25,8 +25,19 @@ class SponsorController extends Controller
         $validated = $request->validate([
             'event_id' => 'required|exists:events,id',
             'name' => 'required|string|max:255',
+            'logo' => 'nullable|image|max:4096',
         ]);
-        Sponsor::create($validated);
+        $imagePath = null;
+        if ($request->hasFile('logo')) {
+            $imagePath = $request->file('logo')->store('sponsors', 'public');
+        }
+
+        Sponsor::create([
+            'name' => $validated['name'],
+            'logo' => $imagePath ?? null,
+            'event_id' => $validated['event_id'],
+        ]);
+
         return redirect()->route('sponsors.index')->with('success', 'Sponsor ajouté avec succès.');
     }
 
@@ -47,8 +58,20 @@ class SponsorController extends Controller
         $validated = $request->validate([
             'event_id' => 'required|exists:events,id',
             'name' => 'required|string|max:255',
+            'logo' => 'nullable|image|max:4096',
         ]);
-        $sponsor->update($validated);
+        
+        $imagePath = $sponsor->logo;
+        if ($request->hasFile('logo')) {
+            $imagePath = $request->file('logo')->store('sponsors', 'public');
+        }
+    
+        $sponsor->update([
+            'name' => $validated['name'],
+            'logo' => $imagePath ?? null,
+            'event_id' => $validated['event_id'],
+        ]);
+
         return redirect()->route('sponsors.index')->with('success', 'Sponsor modifié avec succès.');
     }
 

@@ -8,6 +8,11 @@
         <div class="sponsor-show-title">
             Détail du sponsor
         </div>
+        @if($sponsor->logo)
+            <div class="speaker-image-wrapper">
+                <img src="{{ asset('storage/' . $sponsor->logo) }}" alt="Photo de {{ $sponsor->logo }}" class="sponsor-logo">
+            </div>
+        @endif
         <div class="space-y-2">
             <p class="sponsor-info-text"><span class="sponsor-label">Nom :</span> {{ $sponsor->name }}</p>
             <p class="sponsor-info-text"><span class="sponsor-label">Événement :</span> {{ $sponsor->event->title ?? '-' }}</p>

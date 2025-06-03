@@ -5,7 +5,7 @@
 @section('content')
 <div class="max-w-5xl mx-auto my-10 px-2">
     <div class="speakers-header">
-        <h1 class="section-title text-indigo-700 text-left mb-0">Liste des intervenants</h1>
+        <h1 class="event-title">Liste des intervenants</h1>
         <a href="{{ route('speakers.create') }}" class="btn-green-gradient">
             Ajouter un intervenant
         </a>

@@ -112,7 +112,14 @@
             @if($event->sponsors->count())
                 <ul class="space-y-2">
                     @foreach($event->sponsors as $sponsor)
-                        <li class="bg-yellow-50 rounded-lg px-3 py-2 font-medium text-gray-800">{{ $sponsor->name }}</li>
+                    <li class="bg-yellow-50 rounded-lg px-3 py-2 font-medium text-gray-800">
+                        @if($sponsor->logo)
+                                <img src="{{ asset('storage/' . $sponsor->logo) }}"
+                                     alt="Logo de {{ $sponsor->name }}"
+                                     class="event-speaker-img">
+                            @endif
+                        {{ $sponsor->name }}
+                    </li>
                     @endforeach
                 </ul>
             @else

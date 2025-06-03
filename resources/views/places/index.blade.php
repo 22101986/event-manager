@@ -5,7 +5,7 @@
 @section('content')
 <div class="max-w-5xl mx-auto my-10 px-2">
     <div class="places-header">
-        <h1 class="section-title text-indigo-700 text-left mb-0">Liste des lieux</h1>
+        <h1 class="event-title">Liste des lieux</h1>
         <a href="{{ route('places.create') }}" class="btn-blue-gradient">
             Ajouter un lieu
         </a>

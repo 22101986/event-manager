@@ -8,7 +8,7 @@
         <div class="sponsor-title">
             Ajouter un sponsor
         </div>
-        <form method="POST" action="{{ route('sponsors.store') }}" class="space-y-6">
+        <form method="POST" action="{{ route('sponsors.store') }}" enctype="multipart/form-data" class="space-y-6">
             @csrf
             <div>
                 <label for="name" class="label-green">Nom</label>
@@ -17,6 +17,12 @@
                     required
                     class="input-green">
                 @error('name') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
+            </div>
+            <div>
+                <label for="logo" class="label-green">Logo (fichier)</label>
+                <input type="file" name="logo" id="logo" accept="image/*"
+                    class="input-green file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700">
+                @error('logo') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
             </div>
             <div>
                 <label for="event_id" class="label-green">Événement</label>

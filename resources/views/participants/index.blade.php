@@ -5,7 +5,7 @@
 @section('content')
 <div class="max-w-5xl mx-auto my-10 px-2">
     <div class="participants-header">
-        <h1 class="section-title text-indigo-700 text-left mb-0">Liste des participants</h1>
+        <h1 class="event-title">Liste des participants</h1>
         <a href="{{ route('participants.create') }}" class="btn-green-gradient">
             Ajouter un participant
         </a>
