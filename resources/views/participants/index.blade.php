@@ -4,48 +4,45 @@
 
 @section('content')
 <div class="max-w-5xl mx-auto my-10 px-2">
-    <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-8 gap-4">
-        <h1 class="text-3xl font-extrabold text-indigo-700">Liste des participants</h1>
-        <a href="{{ route('participants.create') }}"
-           class="inline-block bg-gradient-to-r from-green-500 to-green-700 text-white font-bold py-2 px-6 rounded-lg shadow hover:from-green-600 hover:to-green-800 transition">
+    <div class="participants-header">
+        <h1 class="section-title text-indigo-700 text-left mb-0">Liste des participants</h1>
+        <a href="{{ route('participants.create') }}" class="btn-green-gradient">
             Ajouter un participant
         </a>
     </div>
     @if(session('success'))
-        <div class="mb-6 p-4 rounded-lg bg-green-100 text-green-800 font-semibold shadow text-center">
+        <div class="alert-success">
             {{ session('success') }}
         </div>
     @endif
-    <div class="overflow-x-auto bg-white rounded-3xl shadow-lg">
-        <table class="min-w-full divide-y divide-indigo-200">
-            <thead class="bg-indigo-50">
+    <div class="event-table-wrapper">
+        <table class="event-table">
+            <thead class="event-table-head">
                 <tr>
-                    <th class="px-6 py-3 text-left text-xs font-bold text-indigo-700 uppercase tracking-wider">Utilisateur</th>
-                    <th class="px-6 py-3 text-left text-xs font-bold text-indigo-700 uppercase tracking-wider">Email</th>
-                    <th class="px-6 py-3 text-left text-xs font-bold text-indigo-700 uppercase tracking-wider">Événement</th>
-                    <th class="px-6 py-3 text-center text-xs font-bold text-indigo-700 uppercase tracking-wider" width="210">Actions</th>
+                    <th class="event-th">Utilisateur</th>
+                    <th class="event-th">Email</th>
+                    <th class="event-th">Événement</th>
+                    <th class="event-th text-center" width="210">Actions</th>
                 </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-indigo-100">
+            <tbody class="event-table-body">
                 @foreach($participants as $participant)
-                    <tr class="hover:bg-indigo-50 transition">
-                        <td class="px-6 py-4 text-gray-900 font-medium">{{ $participant->user->name ?? '-' }}</td>
-                        <td class="px-6 py-4 text-gray-900">{{ $participant->user->email ?? '-' }}</td>
-                        <td class="px-6 py-4 text-gray-900">{{ $participant->event->title ?? '-' }}</td>
-                        <td class="px-6 py-4 text-center">
+                    <tr class="event-table-row">
+                        <td class="event-td font-medium">{{ $participant->user->name ?? '-' }}</td>
+                        <td class="event-td">{{ $participant->user->email ?? '-' }}</td>
+                        <td class="event-td">{{ $participant->event->title ?? '-' }}</td>
+                        <td class="event-td text-center">
                             <div class="flex flex-wrap justify-center gap-2">
-                                <a href="{{ route('participants.show', $participant) }}"
-                                   class="inline-block bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded transition font-semibold text-sm shadow mb-1">
+                                <a href="{{ route('participants.show', $participant) }}" class="btn-actions btn-view">
                                     Voir
                                 </a>
-                                <a href="{{ route('participants.edit', $participant) }}"
-                                   class="inline-block bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded transition font-semibold text-sm shadow mb-1">
+                                <a href="{{ route('participants.edit', $participant) }}" class="btn-actions btn-edit">
                                     Modifier
                                 </a>
                                 <form action="{{ route('participants.destroy', $participant) }}" method="POST" onsubmit="return confirm('Supprimer ce participant ?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="inline-block bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition font-semibold text-sm shadow">
+                                    <button class="btn-actions btn-delete">
                                         Supprimer
                                     </button>
                                 </form>

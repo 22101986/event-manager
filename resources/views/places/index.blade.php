@@ -4,48 +4,45 @@
 
 @section('content')
 <div class="max-w-5xl mx-auto my-10 px-2">
-    <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-8 gap-4">
-        <h1 class="text-3xl font-extrabold text-indigo-700">Liste des lieux</h1>
-        <a href="{{ route('places.create') }}"
-           class="inline-block bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold py-2 px-6 rounded-lg shadow hover:from-blue-600 hover:to-blue-800 transition">
+    <div class="places-header">
+        <h1 class="section-title text-indigo-700 text-left mb-0">Liste des lieux</h1>
+        <a href="{{ route('places.create') }}" class="btn-blue-gradient">
             Ajouter un lieu
         </a>
     </div>
     @if(session('success'))
-        <div class="mb-6 p-4 rounded-lg bg-green-100 text-green-800 font-semibold shadow text-center">
+        <div class="alert-success">
             {{ session('success') }}
         </div>
     @endif
-    <div class="overflow-x-auto bg-white rounded-3xl shadow-lg">
-        <table class="min-w-full divide-y divide-indigo-200">
-            <thead class="bg-indigo-50">
+    <div class="event-table-wrapper">
+        <table class="event-table">
+            <thead class="event-table-head">
                 <tr>
-                    <th class="px-6 py-3 text-left text-xs font-bold text-indigo-700 uppercase tracking-wider">Nom</th>
-                    <th class="px-6 py-3 text-left text-xs font-bold text-indigo-700 uppercase tracking-wider">Adresse</th>
-                    <th class="px-6 py-3 text-left text-xs font-bold text-indigo-700 uppercase tracking-wider">Description</th>
-                    <th class="px-6 py-3 text-center text-xs font-bold text-indigo-700 uppercase tracking-wider" width="170">Actions</th>
+                    <th class="event-th">Nom</th>
+                    <th class="event-th">Adresse</th>
+                    <th class="event-th">Description</th>
+                    <th class="event-th text-center" width="170">Actions</th>
                 </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-indigo-100">
+            <tbody class="event-table-body">
                 @foreach($places as $place)
-                    <tr class="hover:bg-indigo-50 transition">
-                        <td class="px-6 py-4 text-gray-900 font-medium">{{ $place->name }}</td>
-                        <td class="px-6 py-4 text-gray-900">{{ $place->address }}</td>
-                        <td class="px-6 py-4 text-gray-900">{{ $place->description }}</td>
-                        <td class="px-6 py-4 text-center">
+                    <tr class="event-table-row">
+                        <td class="event-td font-medium">{{ $place->name }}</td>
+                        <td class="event-td">{{ $place->address }}</td>
+                        <td class="event-td">{{ $place->description }}</td>
+                        <td class="event-td text-center">
                             <div class="flex flex-wrap justify-center gap-2">
-                                <a href="{{ route('places.show', $place) }}"
-                                   class="inline-block bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded transition font-semibold text-sm shadow mb-1">
+                                <a href="{{ route('places.show', $place) }}" class="btn-actions btn-view">
                                     Voir
                                 </a>
-                                <a href="{{ route('places.edit', $place) }}"
-                                   class="inline-block bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded transition font-semibold text-sm shadow mb-1">
+                                <a href="{{ route('places.edit', $place) }}" class="btn-actions btn-edit">
                                     Modifier
                                 </a>
                                 <form action="{{ route('places.destroy', $place) }}" method="POST" onsubmit="return confirm('Supprimer ce lieu ?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="inline-block bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition font-semibold text-sm shadow">
+                                    <button class="btn-actions btn-delete">
                                         Supprimer
                                     </button>
                                 </form>

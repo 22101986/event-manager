@@ -4,25 +4,23 @@
 
 @section('content')
 <div class="max-w-xl mx-auto my-12">
-    <div class="bg-white rounded-3xl shadow-lg p-8">
-        <div class="mb-6 text-2xl font-extrabold text-center text-green-700">
+    <div class="card-event">
+        <div class="speaker-title">
             Ajouter un intervenant
         </div>
         <form method="POST" action="{{ route('speakers.store') }}" enctype="multipart/form-data" class="space-y-6">
             @csrf
             <div>
-                <label for="name" class="block font-semibold text-green-700 mb-1">Nom</label>
+                <label for="name" class="label-green">Nom</label>
                 <input type="text" name="name" id="name"
                     value="{{ old('name') }}"
                     required
-                    class="w-full border-2 border-green-300 rounded-lg px-4 py-2 text-gray-900 placeholder-gray-600 focus:border-green-600 focus:ring-2 focus:ring-green-200 transition">
+                    class="input-green">
                 @error('name') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
             </div>
             <div>
-                <label for="event_id" class="block font-semibold text-green-700 mb-1">Événement</label>
-                <select name="event_id" id="event_id"
-                        class="w-full border-2 border-green-300 rounded-lg px-4 py-2 text-gray-900 focus:border-green-600 focus:ring-2 focus:ring-green-200 transition"
-                        required>
+                <label for="event_id" class="label-green">Événement</label>
+                <select name="event_id" id="event_id" class="input-green" required>
                     <option value="">-- Sélectionner --</option>
                     @foreach ($events as $event)
                         <option value="{{ $event->id }}" {{ old('event_id') == $event->id ? 'selected' : '' }}>
@@ -33,24 +31,21 @@
                 @error('event_id') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
             </div>
             <div>
-                <label for="bio" class="block font-semibold text-green-700 mb-1">Bio</label>
-                <textarea name="bio" id="bio" rows="4"
-                          class="w-full border-2 border-green-300 rounded-lg px-4 py-2 text-gray-900 placeholder-gray-600 focus:border-green-600 focus:ring-2 focus:ring-green-200 transition">{{ old('bio') }}</textarea>
+                <label for="bio" class="label-green">Bio</label>
+                <textarea name="bio" id="bio" rows="4" class="input-green">{{ old('bio') }}</textarea>
                 @error('bio') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
             </div>
             <div>
-                <label for="image" class="block font-semibold text-green-700 mb-1">Image (fichier)</label>
+                <label for="image" class="label-green">Image (fichier)</label>
                 <input type="file" name="image" id="image" accept="image/*"
-                       class="w-full border-2 border-green-300 rounded-lg px-4 py-2 text-gray-900 placeholder-gray-600 focus:border-green-600 focus:ring-2 focus:ring-green-200 transition file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700">
+                    class="input-green file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700">
                 @error('image') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
             </div>
             <div class="flex justify-between gap-4 pt-4">
-                <button type="submit"
-                    class="bg-gradient-to-r from-green-500 to-green-700 text-white font-bold py-2 px-6 rounded-lg shadow hover:from-green-600 hover:to-green-800 transition">
+                <button type="submit" class="btn-green-gradient">
                     Enregistrer
                 </button>
-                <a href="{{ route('speakers.index') }}"
-                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-6 rounded-lg shadow transition">
+                <a href="{{ route('speakers.index') }}" class="btn-secondary">
                     Annuler
                 </a>
             </div>
