@@ -32,7 +32,7 @@ class EventController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'nullable|date|after_or_equal:start_date',
             'place_id' => 'nullable|exists:places,id',
-            'poster' => 'nullable|image|max:4096',
+            'poster' => 'nullable|image|max:4096', // max 4Mo
         ]);
         $validated['user_id'] = auth()->id();
 
@@ -71,7 +71,7 @@ class EventController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'nullable|date|after_or_equal:start_date',
             'place_id' => 'nullable|exists:places,id',
-            'poster' => 'nullable|image|max:4096', // max 4Mo
+            'poster' => 'nullable|image|max:4096',
         ]);
 
         // Gestion de l'image d'affiche si elle est présente
