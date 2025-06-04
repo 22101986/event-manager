@@ -55,7 +55,7 @@ Event Manager est un gestionnaire d'événements moderne destiné aux entreprise
    php artisan serve
    ```
 
-## Exemple de schéma de base de données
+## Schéma de base de données
 
 ![Shéma base de donnée (phpMyAdmin)](shema_mySQL.png)
 
