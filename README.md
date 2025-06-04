@@ -72,7 +72,7 @@ Les contributions sont les bienvenues ! Veuillez ouvrir une issue ou une pull re
 
 ## Licence
 
-Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
+Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus d’informations.
 
 ## Auteurs
 
