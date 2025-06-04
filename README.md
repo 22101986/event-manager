@@ -33,7 +33,7 @@ Event Manager est un gestionnaire d'événements moderne destiné aux entreprise
 2. **Installer les dépendances**
    ```bash
    composer install
-   npm install && npm run dev  # Si le projet utilise Laravel Mix/Vite pour les assets
+   npm install && npm run dev
    ```
 
 3. **Configurer l'environnement**
@@ -57,7 +57,7 @@ Event Manager est un gestionnaire d'événements moderne destiné aux entreprise
 
 ## Exemple de schéma de base de données
 
-![Shéma based de donnée (phpMyAdmin)](/shema_mySQL.png)
+![Shéma based de donnée (phpMyAdmin)](shema_mySQL.png)
 
 ## Usage
 
