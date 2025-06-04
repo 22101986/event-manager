@@ -6,7 +6,7 @@
                     <img src="/logo.png" style="height: 75px; width: 75px;" alt="">
                 </a>
             </div>
-            <!-- Mobile menu button -->
+            <!-- Boutons menu mobil -->
             <div class="flex items-center md:hidden">
                 <button id="navbar-toggle" type="button" class="navbar-toggle-btn">
                     <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -15,7 +15,7 @@
                     </svg>
                 </button>
             </div>
-            <!-- Links -->
+            <!-- Liens -->
             <div class="navbar-links">
                 <a href="{{ route('events.index') }}" class="navbar-link">Événements</a>
                 <a href="{{ route('places.index') }}" class="navbar-link">Lieux</a>
@@ -35,7 +35,7 @@
                 @endauth
             </div>
         </div>
-        <!-- Mobile menu -->
+        <!-- Menu mobile -->
         <div id="mobile-menu" class="md:hidden hidden mt-2 space-y-1">
             <a href="{{ route('events.index') }}" class="navbar-link-mobile">Événements</a>
             <a href="{{ route('places.index') }}" class="navbar-link-mobile">Lieux</a>
